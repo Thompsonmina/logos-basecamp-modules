@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "name": "CHANGE-ME-modules",
-  "displayName": "CHANGE ME — My Logos Modules",
-  "description": "A short human description of this module catalog.",
-  "homepage": "https://example.com/modules",
-  "indexUrl": "https://github.com/CHANGE-ME-OWNER/CHANGE-ME-REPO/releases/download/index/index.json",
+  "name": "mina-modules",
+  "displayName": "Mina's Modules",
+  "description": "Games and tools for Logos Basecamp.",
+  "homepage": "https://github.com/Thompsonmina/logos-basecamp-modules",
+  "indexUrl": "https://github.com/Thompsonmina/logos-basecamp-modules/releases/download/index/index.json",
   "trustedSigners": []
 }

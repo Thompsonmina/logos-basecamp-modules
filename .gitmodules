@@ -16,3 +16,11 @@
 ; After cloning a fork, materialise the submodule working trees with:
 ;
 ;   git submodule update --init --recursive
+[submodule "submodules/minesweeper_module"]
+	path = submodules/minesweeper_module
+	url = https://github.com/Thompsonmina/minesweeper_module
+	branch = master
+[submodule "submodules/minesweeper_ui"]
+	path = submodules/minesweeper_ui
+	url = https://github.com/Thompsonmina/minesweeper_ui
+	branch = master
