@@ -11,16 +11,17 @@ name: _release-module
 # `uses: ./.github/workflows/_release-module.yml`.
 #
 # ── Signing modes ────────────────────────────────────────────────────
-# This catalog publishes UNSIGNED (`signing_mode: none`) — matching the
-# empty `trustedSigners` in logos-repo.json. Turn on signing when ready:
+# This catalog publishes SIGNED (`signing_mode: inline`): `lgx sign`
+# runs in the workflow with the `LOGOS_SIGNING_KEY` Actions secret, an
+# Ed25519 JWK. The matching public DID is in `logos-repo.json` under
+# `trustedSigners`, so clients can check that a package came from us.
 #
-#   inline   — `lgx sign` runs in the workflow using a JWK secret.
-#              1. Generate an Ed25519 JWK private key.
-#              2. Add it as the `LOGOS_SIGNING_KEY` Actions secret.
-#              3. Uncomment the `signing_mode: inline` line + the
-#                 `secrets:` block below; delete `signing_mode: none`.
-#              4. Put the matching public DID in `logos-repo.json`
-#                 under `trustedSigners`.
+# The private key exists only as that Actions secret. To rotate it,
+# generate a new pair, replace the secret, and swap the DID — packages
+# already published keep their old signature.
+#
+#   none     — publish unsigned. Set `signing_mode: none` below and
+#              empty `trustedSigners` in logos-repo.json.
 #
 #   external — a signing rig you control (Jenkins, HSM, hardware token)
 #              produces the signed `.lgx`; the key never touches CI.
@@ -61,11 +62,7 @@ jobs:
       skip_if_published: ${{ !inputs.force_build }}
 
       # ─── Signing mode (edit here, not in each caller) ────────────────
-      signing_mode: none
-
-      # Inline signing — uncomment these two lines (and the `secrets:`
-      # block at the bottom), then delete `signing_mode: none` above.
-      #signing_mode: inline
+      signing_mode: inline
 
       # External signing (Jenkins / HSM / hardware token). Uncomment and
       # delete `signing_mode: none`. `signing_command` runs with
@@ -79,8 +76,8 @@ jobs:
       #        -o "$LGX_SIGNED_OUT" \
       #        "$JENKINS_SIGNING_URL"
 
-    # Inline mode reads this; none/external ignore it. Wired via
-    # `secrets: inherit` from each caller so the per-module files don't
-    # need to know which secret names matter. Uncomment for inline mode.
-    #secrets:
-    #  signing_key: ${{ secrets.LOGOS_SIGNING_KEY }}
+    # Inline mode reads this; none/external ignore it. Reaches here via
+    # `secrets: inherit` from each caller, so the per-module files don't
+    # need to know which secret names matter.
+    secrets:
+      signing_key: ${{ secrets.LOGOS_SIGNING_KEY }}

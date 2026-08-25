@@ -5,5 +5,10 @@
   "description": "Games and tools for Logos Basecamp.",
   "homepage": "https://github.com/Thompsonmina/logos-basecamp-modules",
   "indexUrl": "https://github.com/Thompsonmina/logos-basecamp-modules/releases/download/index/index.json",
-  "trustedSigners": []
+  "trustedSigners": [
+    {
+      "did": "did:jwk:eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6IlU1TkY2Y0J3cG1DTV9sZTRqM2pFT1BFOWdxX3Atc3lhSm5YZjAxLU52N1UifQ",
+      "name": "mina"
+    }
+  ]
 }
